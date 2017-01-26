@@ -1,0 +1,176 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="../bower_components/app-localize-behavior/app-localize-behavior.html">
+<dom-module id="my-view1">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 10px;
+      }
+      paper-fab{
+        display: inline-block;
+      }
+      .welcome {
+        margin: 0px 150px;
+        padding: 1px;
+        color: #757575;
+        background-color:cornflowerblue;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+      h1{
+        text-align: center;
+      }
+      paper-card{
+        width: 500px;
+      }
+      paper-material {
+        display: inline-block;
+        background: white;
+        box-sizing: border-box;
+        margin: 23px;
+        padding: 16px;
+        border-radius: 2px;
+      }
+    </style>
+    <div class="welcome">
+      <h1>Welcome to ING Group</h1>
+    </div>
+     <div class="lang">
+        
+      <span title="english">ðŸ‡¬ðŸ‡§ EN</span>
+      <paper-toggle-button on-change="_toggle" id="switch"></paper-toggle-button>
+      <span title="french">FR ðŸ‡«ðŸ‡·</span>
+    </div>
+    <h4>{{localize('header_1')}}</h4>
+    <div class="snippet">
+      <div class="demo">
+        <div>{{localize('greeting')}}</div>
+        <div>{{localize('missing')}}</div>
+        <div>{{localize('intro', 'name', 'Batman')}}</div>
+        <div>{{localize('cats', 'numCats', 10000, 'pctBlack', 0.42)}}</div>
+        <div>{{localize('sale', 'start', 150, 'time', 15, 'price', 10)}}</div>
+      </div>
+      <div class="code">
+        <code>localize('greeting')</code>
+        <code>localize('intro', 'name', 'Batman')</code>
+        <code>localize('cats', 'numCats', 10000, 'pctBlack', 0.42)</code>
+        <!-- Dates need to be a valid JavaScript object. For an example, we
+          are passing a number of milliseconds from the epoch -->
+        <code>localize('sale', 'start', 150, 'time', 15, 'price', 10)</code>
+      </div>
+    </div>
+    <paper-material elevation="1" style="margin-left: 20%;">
+      <div>
+        <h1>Paper Card</h1>
+        <div>
+          <paper-card image="../images/manifest/ing_logo.png" alt="Emmental">
+            <div class="card-content">
+              Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
+            </div>
+            <div class="card-actions">
+              <paper-button class="share" visible="true">Share</paper-button>
+              <paper-button>Explore!</paper-button>
+            </div>
+          </paper-card>
+        </div>
+      </div>
+    </paper-material>
+    <paper-material elevation="1">
+      <div>
+        <paper-button raised>Paper Button with Badge</paper-button>
+        <div>{{localize('hello', 'name', 'Batman')}}</div>
+        <paper-badge label="3"></paper-badge>
+      </div>
+    </paper-material>
+    <br>
+    <paper-material elevation="1">
+      <h4>paper-fab using iron-icons</h4>
+      <paper-fab icon="favorite" title="heart"></paper-fab>
+      <paper-fab disabled icon="reply" title="reply"></paper-fab>
+      <paper-fab class="label" label="😻" title="heart eyes cat"></paper-fab>
+    </paper-material>
+    <paper-material elevation="1">
+      <h4>paper-slider</h4>
+      <paper-slider class="red" editable></paper-slider>
+      <paper-slider pin min="10" max="200" value="20"></paper-slider>      
+    </paper-material>
+    <paper-material elevation="1">
+      <h4>paper-icon-button/paper-tooltip</h4>
+      <paper-icon-button id="id_2" icon="alarm-on" alt="go back"></paper-icon-button>
+      <paper-tooltip for="id_2" offset="0">wake up!</paper-tooltip>
+    </paper-material>
+    <iron-ajax auto
+          url="http://localhost:8080/aboutus.json"
+          params=''
+          handle-as="json"
+          last-response="{{ajaxResponse}}"></iron-ajax>
+    <paper-material elevation="1">
+      <h4>Internationalization</h4>
+      <paper-dropdown-menu label="country" name="country" required>
+            <paper-menu class="dropdown-content">
+              <template is="dom-repeat" items="[[ajaxResponse]]">
+                <paper-item value="{{item.name}}">{{item.name}}</paper-item>
+              </template>
+            </paper-menu>
+          </paper-dropdown-menu>
+    </paper-material>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-view1',
+      behaviors:[
+          Polymer.AppLocalizeBehavior
+        ],
+      properties: {
+        language: {
+            value: 'en',
+            type: String
+          },
+        ajaxResponse : Object
+      },
+      formats: {
+          type: Object,
+          value: function() {
+            return {
+              number: { USD: { style: 'currency', currency: 'USD' } }
+            };
+          }
+        },
+       attached: function() {
+          this.loadResources(this.resolveUrl('locales.json'));
+        },
+      _toggle: function() {
+        this.language = this.$.switch.checked ? 'fr' : 'en';
+      }
+    });
+  </script>
+</dom-module>

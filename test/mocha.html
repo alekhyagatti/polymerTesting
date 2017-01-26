@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+  <script src="../bower_components/test-fixture/test-fixture-mocha.js"></script>
+  
+    <link rel="import" href="../src/my-view1.html">
+  <link rel="import" href="../bower_components/test-fixture/test-fixture.html">
+  
+</head>
+<body>
+  
+  <test-fixture id="view">
+    <template>
+      <my-view1></my-view1>
+    </template>
+  </test-fixture>
+
+  <script>
+    describe('<my-view1>', function() {
+      var view1;
+      beforeEach(function() {
+        view1 = fixture('view');
+      });
+      context('common tests', function() {
+        it('should display the command buttons', function() {
+          view1.setAttribute('show-buttons', 'true');
+          expect(view1.showButtons).to.be.equal(true);
+          expect(view1.querySelector('.share').attributes).to.have.ownProperty('visible');
+        });
+        it('should not display the command buttons', function() {
+          expect(view1.showButtons).to.be.equal(false);
+          expect(view1.querySelector('.buttons').attributes).to.not.have.ownProperty('visible');
+        });
+      });
+    });
+  </script>
+  
+</body>
+</html>

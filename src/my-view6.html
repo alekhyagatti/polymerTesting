@@ -1,0 +1,69 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+
+<dom-module id="my-view6">
+  <template>
+    <style>
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+      .logincontent
+        {
+            position: relative;
+            width: 350px;
+            top: 150px;
+            left: 150px;
+            margin-top: -150px;
+            border: 1px solid black;
+            padding: 30px;
+        }
+		 paper-button.indigo {
+			background-color: var(--paper-indigo-500);
+			margin-top: 10%;
+			color: white;
+			--paper-button-raised-keyboard-focus: {
+			  background-color: var(--paper-pink-a200) !important;
+			  color: white !important;
+			};
+		  }
+    </style>
+
+    <div class="logincontent">
+      <form is="iron-form" method="get" action="/" id="log">
+			  <paper-input name="username" label="Username" required auto-validate pattern="[a-zA-Z]*" error-message="Enter Username"></paper-input>
+        <paper-input type="password" name="password" label="Password"></paper-input>
+			  <paper-checkbox name="food" value="cheese" required checked>Remember Me</paper-checkbox>
+        <br>
+          <paper-button raised class="custom indigo" >SUBMIT</paper-button>
+          <paper-button raised class="custom indigo" onclick="_reset(event)" >CLEAR</paper-button>
+          <paper-button style="text-decoration: underline;">REGISTER</paper-button>
+      </form>
+      <script>
+          function _reset(event) {
+            var form = Polymer.dom(event).localTarget.parentElement
+            form.reset();
+          }
+      </script>
+		</div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-view6',
+    });
+  </script>
+</dom-module>
